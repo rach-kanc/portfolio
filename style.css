@@ -558,6 +558,7 @@ img {
         display: none;
     }
 }
+
 .project-section {
     margin-top: 1.5rem;
 }
@@ -579,7 +580,6 @@ img {
     margin-top: 1.4rem;
 }
 
-
 .contact-email {
     margin-top: 1rem;
     color: var(--text-soft);
@@ -593,5 +593,19 @@ img {
 .copy-email-btn {
     font: inherit;
     cursor: pointer;
+}
+
+.unified-skills {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.section.skills .skills-layout {
+    width: 100%;
+    max-width: 100%;
+    grid-template-columns: 1fr;
 }
 
