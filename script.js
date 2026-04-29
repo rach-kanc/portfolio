@@ -139,6 +139,57 @@ const projects = {
                 </div>
             </div>
         `
+    },
+    aurix: {
+        title: "AURIX",
+        stack: ["Raspberry Pi", "Arduino", "Python", "C++", "Gemini API", "Twilio API"],
+        repo: "#",
+        content: `
+            <div class="overlay-copy">
+                <span class="detail-label">Project Details</span>
+                <h2 id="project-title">AURIX | AI-Integrated Assistive Healthcare Robot</h2>
+
+                <div class="project-section">
+                    <h3>Role</h3>
+                    <p>Lead Structural Designer & Systems Integrator</p>
+                </div>
+
+                <div class="project-section">
+                    <h3>Overview</h3>
+                    <p>AURIX (Assistive Utility & Responsive Intelligent Experience) is a specialized robotic platform engineered to assist staff and residents in hospitals and geriatric care facilities. The project addresses two critical needs: the physical automation of medical supply delivery and the psychological need for companionship and immediate emergency response.</p>
+                </div>
+
+                <div class="project-section">
+                    <h3>Key Contributions</h3>
+                    <ul>
+                        <li><strong>Structural Design & Prototyping:</strong> Spearheaded the end-to-end mechanical design. Utilized Tinkercad to create a high-fidelity 3D digital twin, ensuring spatial optimization for internal hardware (Raspberry Pi, Arduino, and battery arrays) while maintaining structural integrity for the integrated payload tray.</li>
+                        <li><strong>Hardware-Software Orchestration:</strong> Implemented a dual-controller architecture. A Raspberry Pi handles high-level cognitive tasks (Vision and NLP), while an Arduino manages low-level locomotion and real-time motor control.</li>
+                        <li><strong>Cognitive Interaction Layer:</strong> Integrated the Gemini API to provide residents with an empathetic, voice-enabled AI companion capable of natural conversation and information retrieval.</li>
+                        <li><strong>Emergency Response Subsystem:</strong> Developed a safety protocol using the Twilio API to execute cloud-based emergency calls and SMS alerts, providing a critical safety net for patients in unmonitored zones.</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h3>Technical Features</h3>
+                    <ul>
+                        <li><strong>Intelligent Communication:</strong> Real-time speech-to-text and text-to-speech interaction via Gemini-powered NLP.</li>
+                        <li><strong>Logistics Automation:</strong> A front-mounted delivery platform designed for the stable transport of medications, reports, and nutrition.</li>
+                        <li><strong>Remote Mobility:</strong> A 4-motor differential drive system controlled via a custom-built smartphone application for precise maneuvering in clinical settings.</li>
+                        <li><strong>Safety Integration:</strong> Integrated camera and microphone for remote patient monitoring and immediate hazard reporting.</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h3>Tech Stack</h3>
+                    <p>Hardware: Raspberry Pi, Arduino, Tinkercad<br>Programming: Python, C++<br>APIs: Gemini API, Twilio API<br>Tools: Tinkercad, Smartphone App</p>
+                </div>
+
+                <div class="project-section">
+                    <h3>Impact & Objective</h3>
+                    <p>The primary goal of AURIX is to reduce the operational workload of healthcare professionals by 15-20% through the automation of minor logistical tasks, while simultaneously improving the mental well-being of elderly patients through consistent, intelligent engagement.</p>
+                </div>
+            </div>
+        `
     }
 };
 
