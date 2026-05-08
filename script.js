@@ -286,3 +286,86 @@ const observer = new IntersectionObserver((entries) => {
 });
 
 revealItems.forEach((item) => observer.observe(item));
+
+// --- Advanced Cyber-Minimalist Interactions ---
+
+// 1. 3D Tilt Effect for Cards
+const tiltCards = document.querySelectorAll('.skill-card, .project-card, .timeline-card, .about-card');
+tiltCards.forEach(card => {
+    card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        // Max rotation of 6 degrees for a subtle tech feel
+        const rotateX = ((y - centerY) / centerY) * -6; 
+        const rotateY = ((x - centerX) / centerX) * 6;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+        card.style.transition = 'none';
+        
+        // Dynamic border highlight based on cursor position
+        card.style.borderColor = 'rgba(0, 82, 255, 0.5)';
+    });
+    
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        card.style.transition = 'transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease';
+        card.style.borderColor = '';
+    });
+});
+
+// 2. Cyberpunk Hacker Text Effect
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
+const scramblers = document.querySelectorAll('.section-kicker, .eyebrow');
+
+scramblers.forEach(el => {
+    el.addEventListener('mouseover', event => {
+        let iterations = 0;
+        const target = event.target;
+        const targetText = target.dataset.value || target.innerText;
+        
+        if (!target.dataset.value) {
+            target.dataset.value = targetText;
+        }
+        
+        clearInterval(target.interval);
+        
+        target.interval = setInterval(() => {
+            target.innerText = targetText.split("")
+                .map((letter, index) => {
+                    if(index < iterations) {
+                        return targetText[index];
+                    }
+                    return letters[Math.floor(Math.random() * letters.length)]
+                })
+                .join("");
+            
+            if(iterations >= targetText.length){ 
+                clearInterval(target.interval);
+                target.innerText = targetText; // Ensure exact match at the end
+            }
+            iterations += 1 / 3;
+        }, 30);
+    });
+});
+
+// 3. Enhanced Interactive Cursor Glow
+const interactiveElements = document.querySelectorAll('a, button, .project-card, .skill-card, .timeline-card');
+interactiveElements.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+        if (glow) {
+            glow.style.transform = 'translate(-50%, -50%) scale(1.6)';
+            glow.style.background = 'radial-gradient(circle, rgba(0, 82, 255, 0.25) 0%, rgba(0, 82, 255, 0) 70%)';
+        }
+    });
+    el.addEventListener('mouseleave', () => {
+        if (glow) {
+            glow.style.transform = 'translate(-50%, -50%) scale(1)';
+            glow.style.background = ''; // Reverts to CSS defined background
+        }
+    });
+});
