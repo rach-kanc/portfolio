@@ -1,0 +1,10 @@
+# Dependencies
+node_modules/
+
+# Build artifacts
+*.tsbuildinfo
+.turbo/
+.cache/
+
+# Vercel
+.vercel/
