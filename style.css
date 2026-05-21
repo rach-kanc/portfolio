@@ -22,6 +22,7 @@ html {
 }
 
 body {
+    position: relative;
     background: var(--bg);
     color: var(--text-main);
     font-family: 'Space Grotesk', sans-serif;
@@ -828,4 +829,86 @@ img {
     max-width: 100%;
     grid-template-columns: 1fr;
 }
+
+/* Floating background stickers */
+.floating-stickers {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.sticker {
+    position: absolute;
+    opacity: 0.55;
+    mix-blend-mode: screen;
+    animation: floatSticker 6s ease-in-out infinite;
+}
+
+.sticker-1 {
+    top: 12%;
+    left: 2%;
+    --rot: -15deg;
+    animation-delay: 0s;
+    width: clamp(80px, 9vw, 120px);
+}
+
+.sticker-2 {
+    top: 32%;
+    right: 3%;
+    --rot: 15deg;
+    animation-delay: -1.5s;
+    width: clamp(70px, 8vw, 100px);
+}
+
+.sticker-3 {
+    top: 65%;
+    left: 3%;
+    --rot: 25deg;
+    animation-delay: -3s;
+    width: clamp(90px, 10vw, 130px);
+}
+
+.sticker-4 {
+    top: 15%;
+    right: 4%;
+    --rot: -20deg;
+    animation-delay: -4.5s;
+    width: clamp(80px, 9vw, 115px);
+}
+
+.sticker-5 {
+    top: 85%;
+    right: 5%;
+    --rot: -10deg;
+    animation-delay: -2s;
+    width: clamp(65px, 7vw, 95px);
+}
+
+.sticker-6 {
+    top: 48%;
+    left: 1%;
+    --rot: 40deg;
+    animation-delay: -5s;
+    width: clamp(75px, 8vw, 110px);
+}
+
+.sticker-7 {
+    top: 92%;
+    left: 6%;
+    --rot: 10deg;
+    animation-delay: -1s;
+    width: clamp(70px, 8vw, 105px);
+}
+
+@keyframes floatSticker {
+    0%, 100% {
+        transform: translateY(0) rotate(var(--rot));
+    }
+    50% {
+        transform: translateY(-20px) rotate(var(--rot));
+    }
+}
+
 
