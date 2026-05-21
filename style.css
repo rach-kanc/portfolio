@@ -64,6 +64,26 @@ img {
     transition: left 0.18s ease, top 0.18s ease;
 }
 
+.top-banner {
+    background: rgba(255, 255, 255, 0.03);
+    text-align: center;
+    padding: 0.8rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 1.15rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: block;
+    width: 100%;
+    
+    /* Theme accent linear-gradient on text */
+    background-image: linear-gradient(90deg, var(--accent), #00c6ff, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 .site-nav {
     position: sticky;
     top: 0;
