@@ -911,4 +911,85 @@ img {
     }
 }
 
+/* ── Leadership Section ── */
+.leadership-section .background-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
 
+.leadership-card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.leadership-card::before {
+    content: "";
+    position: absolute;
+    inset: auto -10% -30% auto;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 82, 255, 0.15), transparent 70%);
+    pointer-events: none;
+}
+
+.leadership-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 82, 255, 0.3);
+    box-shadow: 0 0 40px rgba(0, 82, 255, 0.15);
+}
+
+.leadership-badge {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 1.1rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(0, 82, 255, 0.12);
+    border: 1px solid rgba(0, 82, 255, 0.28);
+    color: var(--accent);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* ── SSoC Card ── */
+.ssoc-card {
+    border-color: rgba(255, 100, 180, 0.2);
+}
+
+.ssoc-card:hover {
+    border-color: rgba(255, 100, 180, 0.45);
+    box-shadow: 0 0 40px rgba(255, 80, 160, 0.12);
+}
+
+.ssoc-badge {
+    background: rgba(255, 80, 160, 0.12);
+    border-color: rgba(255, 80, 160, 0.3);
+    color: #ff64b4;
+}
+
+.ssoc-code-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-top: 1.1rem;
+    padding: 1rem 1.2rem;
+    border-radius: 10px;
+    background: rgba(10, 8, 20, 0.7);
+    border: 1px solid rgba(255, 100, 180, 0.15);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82rem;
+}
+
+.ssoc-line {
+    display: block;
+    line-height: 1.7;
+}
+
+.ssoc-key   { color: #ff79c6; }
+.ssoc-colon { color: #f8f8f2; }
+.ssoc-val   { color: #50fa7b; }
+.ssoc-num   { color: #bd93f9; }
