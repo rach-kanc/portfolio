@@ -236,6 +236,49 @@ projectCards.forEach((card) => {
     });
 });
 
+const certCards = document.querySelectorAll('.cert-card');
+
+function openCertificate(imgSrc, altText) {
+    detailContainer.innerHTML = `
+        <div class="overlay-copy" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <img src="${imgSrc}" alt="${altText}" style="max-width: 100%; max-height: 85vh; height: auto; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); object-fit: contain;">
+            <h3 style="margin-top: 1.5rem; color: var(--text-main); font-size: 1.5rem;">${altText}</h3>
+        </div>
+    `;
+
+    overlay.classList.remove('hidden');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('overlay-open');
+}
+
+certCards.forEach(card => {
+    card.style.cursor = 'pointer';
+    card.setAttribute('tabindex', '0');
+    
+    const clickHandler = () => {
+        const img = card.querySelector('img');
+        if (img) {
+            openCertificate(img.src, img.alt || 'Certificate');
+        }
+    };
+
+    card.addEventListener('click', clickHandler);
+    card.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            clickHandler();
+        }
+    });
+});
+
+const resumeBtn = document.getElementById('resume-btn');
+if (resumeBtn) {
+    resumeBtn.addEventListener('click', () => {
+        const imgSrc = resumeBtn.dataset.resumeSrc;
+        openCertificate(imgSrc, 'Rachit Kanchan - Resume');
+    });
+}
+
 closeButton.addEventListener('click', closeProject);
 overlay.addEventListener('click', (event) => {
     if (event.target.dataset.close === 'true') {
