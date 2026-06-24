@@ -1138,3 +1138,69 @@ img {
     }
 }
 
+/* Light Theme Variables & Overrides */
+[data-theme="light"] {
+    --bg: #f8fafc;
+    --bg-soft: #f1f5f9;
+    --panel: rgba(255, 255, 255, 0.7);
+    --panel-strong: #ffffff;
+    --line: rgba(0, 0, 0, 0.08);
+    --text-main: #0f172a;
+    --text-soft: #475569;
+    --accent: #0052ff;
+    --accent-strong: #003db3;
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .site-nav {
+    background: rgba(255, 255, 255, 0.6);
+    border-bottom: 1px solid var(--line);
+}
+
+[data-theme="light"] .top-banner {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid var(--line);
+}
+
+[data-theme="light"] .page-noise {
+    background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+}
+
+[data-theme="light"] .status-card {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.01)), linear-gradient(160deg, rgba(0, 82, 255, 0.08), rgba(0, 68, 204, 0.06));
+    border: 1px solid var(--line);
+}
+
+[data-theme="light"] .signal-grid div {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid var(--line);
+}
+
+[data-theme="light"] .btn-secondary {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: var(--line);
+}
+
+[data-theme="light"] .tags span,
+[data-theme="light"] .chip-list span {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--line);
+}
+
+[data-theme="light"] .project-card::before {
+    background: radial-gradient(circle, rgba(0, 68, 204, 0.1), transparent 70%);
+}
+
+[data-theme="light"] .timeline.alternating::before {
+    background: var(--line);
+}
+
+[data-theme="light"] .overlay-backdrop {
+    background: rgba(255, 255, 255, 0.76);
+}
+
+[data-theme="light"] .close-btn {
+    border: 1px solid var(--line);
+    background: rgba(0, 0, 0, 0.04);
+}
+

@@ -412,3 +412,39 @@ interactiveElements.forEach(el => {
         }
     });
 });
+
+// 4. Theme Toggle Logic
+const themeToggleBtn = document.getElementById('theme-toggle');
+const moonIcon = document.querySelector('.moon-icon');
+const sunIcon = document.querySelector('.sun-icon');
+
+const currentTheme = localStorage.getItem('theme') || 'dark';
+
+if (currentTheme === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+    if(moonIcon && sunIcon) {
+        moonIcon.style.display = 'block';
+        sunIcon.style.display = 'none';
+    }
+}
+
+if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+        let theme = document.documentElement.getAttribute('data-theme');
+        if (theme === 'light') {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'dark');
+            if(moonIcon && sunIcon) {
+                moonIcon.style.display = 'none';
+                sunIcon.style.display = 'block';
+            }
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+            if(moonIcon && sunIcon) {
+                moonIcon.style.display = 'block';
+                sunIcon.style.display = 'none';
+            }
+        }
+    });
+}
