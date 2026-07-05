@@ -8,7 +8,9 @@ let currentEditId = null;
 const schema = {
     project: [
         { name: 'title', label: 'Title', type: 'text', required: true },
+        { name: 'slug', label: 'Slug (URL friendly)', type: 'text', required: true },
         { name: 'category', label: 'Category', type: 'text' },
+        { name: 'status', label: 'Status (e.g. Completed)', type: 'text' },
         { name: 'short_description', label: 'Short Description', type: 'text' },
         { name: 'full_description', label: 'Full Description', type: 'textarea' },
         { name: 'problem_statement', label: 'Problem Statement', type: 'textarea' },
@@ -17,32 +19,50 @@ const schema = {
         { name: 'tech_stack', label: 'Tech Stack (JSON Array format)', type: 'text' },
         { name: 'github_url', label: 'GitHub URL', type: 'text' },
         { name: 'live_demo', label: 'Live Demo URL', type: 'text' },
-        { name: 'thumbnail', label: 'Thumbnail Image', type: 'file' }
+        { name: 'thumbnail', label: 'Thumbnail Image', type: 'file' },
+        { name: 'architecture_image', label: 'Architecture Image', type: 'file' },
+        { name: 'featured', label: 'Featured? (true/false)', type: 'text' },
+        { name: 'display_order', label: 'Display Order', type: 'number' },
+        { name: 'start_date', label: 'Start Date', type: 'date' },
+        { name: 'end_date', label: 'End Date', type: 'date' },
+        { name: 'team_size', label: 'Team Size', type: 'number' },
+        { name: 'my_role', label: 'My Role', type: 'text' }
     ],
     skill: [
         { name: 'name', label: 'Skill Name', type: 'text', required: true },
-        { name: 'category', label: 'Category', type: 'text', required: true }
+        { name: 'category', label: 'Category', type: 'text', required: true },
+        { name: 'icon', label: 'Icon (URL or SVG/FontAwesome class)', type: 'text' },
+        { name: 'display_order', label: 'Display Order', type: 'number' },
+        { name: 'proficiency', label: 'Proficiency (1-100)', type: 'number' }
     ],
     cert: [
         { name: 'title', label: 'Title', type: 'text', required: true },
         { name: 'issuer', label: 'Issuer', type: 'text' },
         { name: 'issue_date', label: 'Issue Date', type: 'date' },
+        { name: 'credential_id', label: 'Credential ID', type: 'text' },
         { name: 'credential_url', label: 'Credential URL', type: 'text' },
-        { name: 'certificate_image', label: 'Certificate Image', type: 'file' }
+        { name: 'certificate_image', label: 'Certificate Image', type: 'file' },
+        { name: 'featured', label: 'Featured? (true/false)', type: 'text' },
+        { name: 'tags', label: 'Tags (JSON Array format)', type: 'text' },
+        { name: 'display_order', label: 'Display Order', type: 'number' }
     ],
     leadership: [
         { name: 'organization', label: 'Organization', type: 'text', required: true },
         { name: 'position', label: 'Position', type: 'text', required: true },
         { name: 'description', label: 'Description', type: 'textarea' },
         { name: 'start_date', label: 'Start Date', type: 'date' },
-        { name: 'end_date', label: 'End Date (Leave blank if ongoing)', type: 'date' }
+        { name: 'end_date', label: 'End Date (Leave blank if ongoing)', type: 'date' },
+        { name: 'logo', label: 'Logo Image', type: 'file' },
+        { name: 'priority', label: 'Priority Order', type: 'number' }
     ],
     event: [
         { name: 'event_name', label: 'Event Name', type: 'text', required: true },
+        { name: 'type', label: 'Type (e.g., Hackathon, Conference)', type: 'text', required: true },
         { name: 'role', label: 'Role', type: 'text' },
         { name: 'organizer', label: 'Organizer', type: 'text' },
         { name: 'date', label: 'Date', type: 'date' },
-        { name: 'description', label: 'Description', type: 'textarea' }
+        { name: 'description', label: 'Description', type: 'textarea' },
+        { name: 'certificate', label: 'Certificate Image', type: 'file' }
     ]
 };
 
@@ -185,11 +205,13 @@ async function handleFormSubmit(e) {
                     const url = await storage.uploadFile(`${currentType}s`, val);
                     if (url) data[f.name] = url;
                 }
-            } else if (f.name === 'features' || f.name === 'tech_stack') {
+            } else if (f.name === 'features' || f.name === 'tech_stack' || f.name === 'tags') {
                 if (val) {
                     try { data[f.name] = JSON.parse(val); } 
                     catch (e) { alert(`Invalid JSON format for ${f.label}`); throw e; }
                 }
+            } else if (f.name === 'featured') {
+                data[f.name] = val.toLowerCase() === 'true';
             } else {
                 if (val) data[f.name] = val;
                 else if (!f.required) data[f.name] = null;
