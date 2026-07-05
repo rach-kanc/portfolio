@@ -141,13 +141,13 @@ CREATE POLICY "Allow public read on profile" ON profile FOR SELECT USING (true);
 CREATE POLICY "Allow public read on experience" ON experience FOR SELECT USING (true);
 
 -- Create Policies for WRITE access (Authenticated Admin only)
-CREATE POLICY "Allow admin write on projects" ON projects FOR ALL USING (auth.role() = 'authenticated');
-CREATE POLICY "Allow admin write on certificates" ON certificates FOR ALL USING (auth.role() = 'authenticated');
-CREATE POLICY "Allow admin write on leadership" ON leadership FOR ALL USING (auth.role() = 'authenticated');
-CREATE POLICY "Allow admin write on events" ON events FOR ALL USING (auth.role() = 'authenticated');
-CREATE POLICY "Allow admin write on skills" ON skills FOR ALL USING (auth.role() = 'authenticated');
-CREATE POLICY "Allow admin write on profile" ON profile FOR ALL USING (auth.role() = 'authenticated');
-CREATE POLICY "Allow admin write on experience" ON experience FOR ALL USING (auth.role() = 'authenticated');
+CREATE POLICY "Allow admin write on projects" ON projects FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Allow admin write on certificates" ON certificates FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Allow admin write on leadership" ON leadership FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Allow admin write on events" ON events FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Allow admin write on skills" ON skills FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Allow admin write on profile" ON profile FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Allow admin write on experience" ON experience FOR ALL TO authenticated USING (true) WITH CHECK (true);
 
 -------------------------------------------------------------------------------
 -- 3. TRIGGERS
