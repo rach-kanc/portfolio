@@ -3,6 +3,7 @@ const detailContainer = document.getElementById('project-details');
 const closeButton = document.querySelector('.close-btn');
 const glow = document.querySelector('.cursor-glow');
 const copyEmailButton = document.querySelector('.copy-email-btn');
+const revealItems = document.querySelectorAll('.reveal');
 
 function closeProject() {
     overlay.classList.add('hidden');
