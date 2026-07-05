@@ -182,9 +182,7 @@ async function handleFormSubmit(e) {
             
             if (f.type === 'file') {
                 if (val && val.size > 0) {
-                    const ext = val.name.split('.').pop();
-                    const path = `${currentType}s/${Date.now()}.${ext}`;
-                    const url = await storage.uploadImage(val, path, 'portfolio-media');
+                    const url = await storage.uploadFile(`${currentType}s`, val);
                     if (url) data[f.name] = url;
                 }
             } else if (f.name === 'features' || f.name === 'tech_stack') {
