@@ -184,7 +184,7 @@ async function handleFormSubmit(e) {
                 if (val && val.size > 0) {
                     const ext = val.name.split('.').pop();
                     const path = `${currentType}s/${Date.now()}.${ext}`;
-                    const url = await storage.uploadImage(val, path, 'portfolio-assets');
+                    const url = await storage.uploadImage(val, path, 'portfolio-media');
                     if (url) data[f.name] = url;
                 }
             } else if (f.name === 'features' || f.name === 'tech_stack') {
