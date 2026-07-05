@@ -27,24 +27,42 @@ Personal portfolio website of **Rachit Kanchan**, a B.Tech CSE student at SRMS C
 
 ## Tech Stack
 
-- **Languages:** Python, Java, C, HTML, CSS
-- **Databases:** MySQL, PostgreSQL, SQLite, Supabase
-- **Frontend:** Vanilla HTML/CSS + Space Grotesk & IBM Plex Mono fonts
-- **Analytics:** Vercel Analytics (`@vercel/analytics`)
-- **Build:** esbuild (bundles analytics script)
-- **Deployment:** Vercel / GitHub Pages
+- **Frontend:** Vanilla HTML/CSS/JS + Space Grotesk & IBM Plex Mono fonts
+- **Backend (CMS):** Supabase (PostgreSQL, Storage, Auth)
+- **Build Tool:** Vite
+- **Analytics:** Vercel Analytics
+- **Deployment:** Vercel
 
 ## Local Setup
 
-```bash
-# Install dependencies
-npm install
+To run this dynamic CMS portfolio locally, you'll need to link it to a Supabase project.
 
-# Build the analytics bundle
-npm run build:analytics
+1. **Clone and Install**
+   ```bash
+   git clone https://github.com/rach-kanc/portfolio.git
+   cd portfolio
+   npm install
+   ```
 
-# Open index.html in your browser (no dev server needed)
-```
+2. **Supabase Database & Storage Setup**
+   - Create a new project in [Supabase](https://supabase.com).
+   - Go to the **SQL Editor** in your Supabase dashboard and run the entire contents of `schema.sql` to create all tables and RLS policies.
+   - Create a new public storage bucket named `portfolio-media`.
+   - Setup Supabase Authentication (Email/Password) and create an admin user for yourself. Make sure "Auto Confirm User?" is checked.
+
+3. **Environment Variables**
+   - Create a `.env` file in the root of your project:
+     ```env
+     VITE_SUPABASE_URL=your_supabase_project_url
+     VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+     ```
+
+4. **Run Locally**
+   ```bash
+   npm run dev
+   ```
+   - The main portfolio will run at `http://localhost:5173/`
+   - The Admin Dashboard will be at `http://localhost:5173/admin/login.html`
 
 ## Contact
 
