@@ -1,7 +1,44 @@
+const overlay = document.getElementById('project-overlay');
+const detailContainer = document.getElementById('project-details');
+const closeButton = document.querySelector('.close-btn');
+const glow = document.querySelector('.cursor-glow');
+const copyEmailButton = document.querySelector('.copy-email-btn');
+
+function closeProject() {
+    overlay.classList.add('hidden');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('overlay-open');
+}
+
+window.closeProject = closeProject;
+
+window.openCertificate = function(imgSrc, altText) {
+    detailContainer.innerHTML = `
+        <div class="overlay-copy" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <img src="${imgSrc}" alt="${altText}" style="max-width: 100%; max-height: 85vh; height: auto; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); object-fit: contain;">
+            <h3 style="margin-top: 1.5rem; color: var(--text-main); font-size: 1.5rem;">${altText}</h3>
+        </div>
+    `;
+
+    overlay.classList.remove('hidden');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('overlay-open');
+};
+
+const resumeBtn = document.getElementById('resume-btn');
+if (resumeBtn) {
+    resumeBtn.addEventListener('click', () => {
+        const imgSrc = resumeBtn.dataset.resumeSrc;
+        if (imgSrc) {
+            window.openCertificate(imgSrc, 'Rachit Kanchan - Resume');
+        }
     });
 }
 
-closeButton.addEventListener('click', closeProject);
+if (closeButton) {
+    closeButton.addEventListener('click', closeProject);
+}
+
 overlay.addEventListener('click', (event) => {
     if (event.target.dataset.close === 'true') {
         closeProject();
