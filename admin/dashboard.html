@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Portfolio</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        body { display: flex; min-height: 100vh; margin: 0; background: var(--bg-main); color: var(--text-main); }
+        .sidebar { width: 250px; background: rgba(255, 255, 255, 0.02); border-right: 1px solid rgba(255, 255, 255, 0.1); padding: 2rem 1rem; display: flex; flex-direction: column; }
+        .sidebar h2 { margin-bottom: 2rem; text-align: center; }
+        .nav-btn { background: none; border: none; color: var(--text-secondary); padding: 1rem; text-align: left; cursor: pointer; border-radius: 8px; margin-bottom: 0.5rem; font-size: 1rem; transition: all 0.3s ease; }
+        .nav-btn:hover, .nav-btn.active { background: rgba(0, 82, 255, 0.2); color: var(--text-main); }
+        .logout-btn { margin-top: auto; background: rgba(255, 77, 77, 0.2); color: #ff4d4d; }
+        .main-content { flex: 1; padding: 2rem; overflow-y: auto; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .header-actions { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .data-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        .data-table th, .data-table td { padding: 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: left; }
+        .action-btn { padding: 0.4rem 0.8rem; margin-right: 0.5rem; border-radius: 4px; cursor: pointer; border: none; }
+        .edit-btn { background: #0052ff; color: white; }
+        .delete-btn { background: #ff4d4d; color: white; }
+        
+        .admin-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .admin-modal.hidden { display: none; }
+        .modal-content { background: var(--bg-main); padding: 2rem; border-radius: 12px; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; border: 1px solid rgba(255,255,255,0.1); }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.8rem; border-radius: 8px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2); color: white; }
+        .modal-actions { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem; }
+    </style>
+</head>
+<body data-theme="dark">
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <button class="nav-btn active" data-target="projects">Projects</button>
+        <button class="nav-btn" data-target="skills">Skills</button>
+        <button class="nav-btn" data-target="certs">Certificates</button>
+        <button class="nav-btn" data-target="leadership">Leadership</button>
+        <button class="nav-btn" data-target="events">Events</button>
+        <button class="nav-btn logout-btn" id="logout-btn">Logout</button>
+    </div>
+
+    <div class="main-content">
+        <div id="projects" class="tab-content active">
+            <div class="header-actions">
+                <h2>Projects</h2>
+                <button class="btn btn-primary" onclick="window.openModal('project')">Add Project</button>
+            </div>
+            <table class="data-table">
+                <thead><tr><th>Title</th><th>Category</th><th>Actions</th></tr></thead>
+                <tbody id="projects-tbody"></tbody>
+            </table>
+        </div>
+        
+        <div id="skills" class="tab-content">
+            <div class="header-actions">
+                <h2>Skills</h2>
+                <button class="btn btn-primary" onclick="window.openModal('skill')">Add Skill</button>
+            </div>
+            <table class="data-table">
+                <thead><tr><th>Name</th><th>Category</th><th>Actions</th></tr></thead>
+                <tbody id="skills-tbody"></tbody>
+            </table>
+        </div>
+
+        <div id="certs" class="tab-content">
+            <div class="header-actions">
+                <h2>Certificates</h2>
+                <button class="btn btn-primary" onclick="window.openModal('cert')">Add Certificate</button>
+            </div>
+            <table class="data-table">
+                <thead><tr><th>Title</th><th>Issuer</th><th>Actions</th></tr></thead>
+                <tbody id="certs-tbody"></tbody>
+            </table>
+        </div>
+
+        <div id="leadership" class="tab-content">
+            <div class="header-actions">
+                <h2>Leadership</h2>
+                <button class="btn btn-primary" onclick="window.openModal('leadership')">Add Role</button>
+            </div>
+            <table class="data-table">
+                <thead><tr><th>Position</th><th>Organization</th><th>Actions</th></tr></thead>
+                <tbody id="leadership-tbody"></tbody>
+            </table>
+        </div>
+
+        <div id="events" class="tab-content">
+            <div class="header-actions">
+                <h2>Events</h2>
+                <button class="btn btn-primary" onclick="window.openModal('event')">Add Event</button>
+            </div>
+            <table class="data-table">
+                <thead><tr><th>Event Name</th><th>Role</th><th>Actions</th></tr></thead>
+                <tbody id="events-tbody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Generic Modal -->
+    <div id="admin-modal" class="admin-modal hidden">
+        <div class="modal-content">
+            <h2 id="modal-title">Form</h2>
+            <form id="admin-form">
+                <div id="form-fields"></div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="window.closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

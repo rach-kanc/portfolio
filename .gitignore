@@ -1,6 +1,11 @@
 # Dependencies
 node_modules/
 
+# Environment Variables
+.env
+.env.*
+!.env.example
+
 # Build artifacts
 *.tsbuildinfo
 .turbo/
@@ -8,4 +13,3 @@ node_modules/
 
 # Vercel
 .vercel/
-
