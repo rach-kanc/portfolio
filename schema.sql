@@ -164,4 +164,17 @@ $$ language 'plpgsql';
 
 -- Apply the trigger to relevant tables
 CREATE TRIGGER update_projects_updated_at BEFORE UPDATE ON projects FOR EACH ROW EXECUTE PROCEDURE update_updated_at_column();
+
+-- 5. STORAGE POLICIES
+-- NOTE: These policies apply to the Supabase Storage bucket 'portfolio-media'
+-- You must create the bucket in the Supabase UI first.
+
+-- Allow public access to read files
+CREATE POLICY "Public Access" ON storage.objects FOR SELECT USING ( bucket_id = 'portfolio-media' );
+
+-- Allow authenticated users to upload files
+CREATE POLICY "Admin Upload" ON storage.objects FOR INSERT TO authenticated WITH CHECK ( bucket_id = 'portfolio-media' );
+
+-- Allow authenticated users to update/delete files
+CREATE POLICY "Admin Update/Delete" ON storage.objects FOR ALL TO authenticated USING ( bucket_id = 'portfolio-media' );
 CREATE TRIGGER update_profile_updated_at BEFORE UPDATE ON profile FOR EACH ROW EXECUTE PROCEDURE update_updated_at_column();
