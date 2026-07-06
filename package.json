@@ -5,9 +5,8 @@
   "main": "script.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && npm run build:analytics",
+    "build": "vite build",
     "preview": "vite preview",
-    "build:analytics": "esbuild assets/js/analytics.js --bundle --minify --outfile=assets/js/analytics.bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
