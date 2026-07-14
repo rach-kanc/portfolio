@@ -186,9 +186,11 @@ img {
 }
 
 .hero-actions,
-.contact-actions {
+.contact-actions,
+.view-more-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
     margin-top: 2rem;
 }
@@ -794,8 +796,17 @@ img {
 
     .nav-links {
         gap: 1rem;
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 0.5rem;
+        width: 100%;
+        scrollbar-width: none;
+    }
+    
+    .nav-links::-webkit-scrollbar {
+        display: none;
     }
 
     .section {
@@ -812,6 +823,12 @@ img {
 
     .overlay-content {
         padding: 1.4rem;
+        width: 90vw;
+    }
+
+    .full-cert-popup {
+        max-width: 90vw;
+        max-height: 70vh;
     }
 
     .cursor-glow {
