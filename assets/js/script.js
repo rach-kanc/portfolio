@@ -91,7 +91,7 @@ const observer = new IntersectionObserver((entries) => {
 revealItems.forEach((item) => observer.observe(item));
 
 // --- Advanced Cyber-Minimalist Interactions ---
-
+export function initInteractions() {
 // 1. 3D Tilt Effect for Cards
 const tiltCards = document.querySelectorAll('.skill-card, .project-card, .timeline-card, .about-card');
 tiltCards.forEach(card => {
@@ -172,6 +172,8 @@ interactiveElements.forEach(el => {
         }
     });
 });
+
+}
 
 // 4. Theme Toggle Logic
 const themeToggleBtn = document.getElementById('theme-toggle');

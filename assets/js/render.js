@@ -1,5 +1,6 @@
 import { api } from '../../services/api.js';
 import { components } from './components.js';
+import { initInteractions } from './script.js';
 
 let projectsData = [];
 
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         renderEvents(events || []);
 
         initObserver();
+        initInteractions();
 
     } catch (error) {
         console.error('Error rendering dynamic content:', error);
