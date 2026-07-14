@@ -30,7 +30,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 function renderProjects(projects) {
     const container = document.querySelector('.project-grid');
     if (!container) return;
-    container.innerHTML = projects.map(p => components.projectCard(p)).join('');
+    
+    let displayProjects = projects;
+    if (window.location.pathname === '/' || window.location.pathname.endsWith('index.html')) {
+        displayProjects = projects.slice(0, 4);
+    }
+    
+    container.innerHTML = displayProjects.map(p => components.projectCard(p)).join('');
     
     const cards = container.querySelectorAll('.project-card');
     cards.forEach(card => {
