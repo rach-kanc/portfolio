@@ -7,6 +7,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         certificates: resolve(__dirname, 'certificates.html'),
+        projects: resolve(__dirname, 'projects.html'),
         adminDashboard: resolve(__dirname, 'admin/dashboard.html'),
         adminLogin: resolve(__dirname, 'admin/login.html')
       }

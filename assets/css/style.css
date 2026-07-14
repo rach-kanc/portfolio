@@ -349,6 +349,45 @@ img {
 .project-grid > :nth-child(3) { grid-column: span 1; }
 .project-grid > :nth-child(4) { grid-column: span 2; }
 
+/* Project Carousel for Homepage */
+.project-grid.carousel {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 0.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    padding-bottom: 1.5rem;
+}
+
+.project-grid.carousel::-webkit-scrollbar {
+    height: 6px;
+}
+.project-grid.carousel::-webkit-scrollbar-track {
+    background: transparent;
+}
+.project-grid.carousel::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+[data-theme="light"] .project-grid.carousel::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.project-grid.carousel .project-card {
+    flex: 0 0 calc(60% - 1rem);
+    scroll-snap-align: start;
+    min-width: 300px;
+    grid-column: auto !important;
+}
+
+@media (max-width: 980px) {
+    .project-grid.carousel .project-card {
+        flex: 0 0 calc(85% - 1rem);
+    }
+}
+
 .project-card {
     position: relative;
     overflow: hidden;
