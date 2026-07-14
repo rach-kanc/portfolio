@@ -64,7 +64,13 @@ function renderSkills(skills) {
 function renderCertificates(certs) {
     const container = document.querySelector('.cert-grid');
     if (!container) return;
-    container.innerHTML = certs.map(c => components.certCard(c)).join('');
+
+    let displayCerts = certs;
+    if (window.location.pathname === '/' || window.location.pathname.endsWith('index.html')) {
+        displayCerts = certs.slice(0, 6);
+    }
+
+    container.innerHTML = displayCerts.map(c => components.certCard(c)).join('');
 
     const cards = container.querySelectorAll('.cert-card');
     cards.forEach(card => {
