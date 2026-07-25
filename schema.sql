@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS certificates (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     title VARCHAR(255) NOT NULL,
     issuer VARCHAR(255) NOT NULL,
+    category VARCHAR(100) DEFAULT 'General',
     issue_date DATE NOT NULL,
     credential_id VARCHAR(255),
     credential_url VARCHAR(512),

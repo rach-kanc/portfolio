@@ -37,6 +37,7 @@ const schema = {
     ],
     cert: [
         { name: 'title', label: 'Title', type: 'text', required: true },
+        { name: 'category', label: 'Category', type: 'select', options: ['Hackathons & Tech Events', 'Courses', 'Bootcamps', 'Memberships', 'General'], required: true },
         { name: 'issuer', label: 'Issuer', type: 'text' },
         { name: 'issue_date', label: 'Issue Date', type: 'date' },
         { name: 'credential_id', label: 'Credential ID', type: 'text' },
@@ -105,7 +106,7 @@ async function loadData() {
 
     renderTable('projects', projects, p => `<td>${p.title}</td><td>${p.category || ''}</td>`);
     renderTable('skills', skills, s => `<td>${s.name}</td><td>${s.category}</td>`);
-    renderTable('certs', certs, c => `<td>${c.title}</td><td>${c.issuer || ''}</td>`);
+    renderTable('certs', certs, c => `<td>${c.title}</td><td>${c.issuer || ''}</td><td>${c.category || 'General'}</td>`);
     renderTable('leadership', leadership, l => `<td>${l.position}</td><td>${l.organization}</td>`);
     renderTable('events', events, e => `<td>${e.event_name}</td><td>${e.role || ''}</td>`);
 }
@@ -147,6 +148,10 @@ window.openModal = function(type, item = null) {
         } else if (f.type === 'file') {
             inputHtml = `<input type="file" id="${f.name}" name="${f.name}">
                          ${val ? `<small>Current: <a href="${val}" target="_blank" style="color:var(--text-main)">View</a></small>` : ''}`;
+        } else if (f.type === 'select') {
+            inputHtml = `<select id="${f.name}" name="${f.name}" ${f.required ? 'required' : ''}>
+                ${(f.options || []).map(opt => `<option value="${opt}" ${val === opt ? 'selected' : ''}>${opt}</option>`).join('')}
+            </select>`;
         } else {
             inputHtml = `<input type="${f.type}" id="${f.name}" name="${f.name}" value="${val.toString().replace(/"/g, '&quot;')}" ${f.required ? 'required' : ''}>`;
         }
