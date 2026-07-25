@@ -400,7 +400,7 @@ img {
 .project-card {
     position: relative;
     overflow: hidden;
-    min-height: 280px;
+    min-height: auto;
     padding: 1.6rem;
     border-radius: 16px;
     cursor: pointer;

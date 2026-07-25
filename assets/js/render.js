@@ -59,15 +59,23 @@ function renderProjects(projects) {
             'General': '📁'
         };
 
+        const typeTitles = {
+            'Open Source': 'Open-Source Contributions',
+            'Personal': 'Personal Projects & Experiments',
+            'Teamwork': 'Teamwork projects (hackathon/team builds)',
+            'General': 'Other Projects'
+        };
+
         let html = '';
         const allTypes = typesOrder.concat(Object.keys(grouped).filter(k => !typesOrder.includes(k)));
         allTypes.forEach(type => {
             const list = grouped[type];
             if (list && list.length > 0) {
                 const icon = typeIcons[type] || '📂';
+                const displayTitle = typeTitles[type] || type;
                 html += `
                     <div class="project-category-section">
-                        <h3 class="project-category-title reveal">${icon} ${type}</h3>
+                        <h3 class="project-category-title reveal">${icon} ${displayTitle}</h3>
                         <div class="project-grid categorized">
                             ${list.map(p => components.projectCard(p)).join('')}
                         </div>

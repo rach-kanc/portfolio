@@ -7,9 +7,6 @@ export const components = {
           </div>
           <h3>${project.title}</h3>
           <p>${project.short_description || ''}</p>
-          <div class="tags">
-              ${(project.tech_stack || []).map(tech => `<span>${tech}</span>`).join('')}
-          </div>
           ${project.github_url ? `<a href="${project.github_url}" class="project-link" target="_blank" rel="noopener noreferrer">View GitHub</a>` : ''}
       </article>
     `;
