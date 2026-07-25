@@ -180,13 +180,19 @@ const themeToggleBtn = document.getElementById('theme-toggle');
 const moonIcon = document.querySelector('.moon-icon');
 const sunIcon = document.querySelector('.sun-icon');
 
-const currentTheme = localStorage.getItem('theme') || 'dark';
+const currentTheme = localStorage.getItem('theme') || 'light';
 
 if (currentTheme === 'light') {
     document.documentElement.setAttribute('data-theme', 'light');
     if(moonIcon && sunIcon) {
         moonIcon.style.display = 'block';
         sunIcon.style.display = 'none';
+    }
+} else {
+    document.documentElement.removeAttribute('data-theme');
+    if(moonIcon && sunIcon) {
+        moonIcon.style.display = 'none';
+        sunIcon.style.display = 'block';
     }
 }
 
