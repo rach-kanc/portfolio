@@ -20,25 +20,24 @@
         }
         
         .cert-grid.wrap {
-            flex-wrap: wrap;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 1.5rem;
             overflow-x: visible;
         }
         
         .cert-grid.wrap .cert-card {
-            flex: 0 0 calc(33.333% - 1rem);
-            margin-bottom: 1.5rem;
+            width: 100%;
+            max-width: none;
+            min-width: 0;
+            margin-bottom: 0;
+            flex: none;
         }
         
-        @media (max-width: 980px) {
-            .cert-grid.wrap .cert-card {
-                flex: 0 0 calc(50% - 1rem);
-            }
-        }
-        
-        @media (max-width: 720px) {
-            .cert-grid.wrap .cert-card {
-                flex: 0 0 100%;
+        @media (max-width: 600px) {
+            .cert-grid.wrap {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 1rem;
             }
         }
     </style>
