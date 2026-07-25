@@ -655,12 +655,27 @@ img {
     background: var(--accent-strong);
 }
 
-/* ── Education Horizontal Grid ── */
+/* ── Education Horizontal Timeline ── */
 .education-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3.5rem;
+    position: relative;
+    padding-top: 2.8rem;
+}
+
+/* The Horizontal Track Line */
+.education-grid::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 2rem;
+    right: 2rem;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), rgba(0, 82, 255, 0.15));
+    border-radius: 99px;
+    z-index: 1;
 }
 
 .education-card {
@@ -671,6 +686,64 @@ img {
     padding: 1.5rem !important;
     border-radius: 16px !important;
     text-align: left;
+    position: relative;
+    overflow: visible;
+}
+
+/* The Glowing Node on the Track */
+.education-card::before {
+    content: '';
+    position: absolute;
+    top: calc(-2.8rem - 6px);
+    left: 2rem;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--panel-strong);
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 12px rgba(0, 82, 255, 0.7);
+    z-index: 2;
+}
+
+/* The Vertical Connector Drop-Line */
+.education-card::after {
+    content: '';
+    position: absolute;
+    top: calc(-2.8rem + 9px);
+    left: calc(2rem + 6px);
+    width: 3px;
+    height: calc(2.8rem - 9px);
+    background: linear-gradient(180deg, var(--accent), rgba(0, 82, 255, 0.1));
+    z-index: 1;
+}
+
+@media (max-width: 860px) {
+    .education-grid {
+        grid-template-columns: 1fr;
+        padding-top: 0;
+        padding-left: 2.2rem;
+        gap: 1.5rem;
+    }
+    .education-grid::before {
+        top: 0;
+        bottom: 0;
+        left: 6px;
+        right: auto;
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(180deg, var(--accent), rgba(0, 82, 255, 0.15));
+    }
+    .education-card::before {
+        top: 1.5rem;
+        left: -2.2rem;
+    }
+    .education-card::after {
+        top: calc(1.5rem + 6px);
+        left: calc(-2.2rem + 9px);
+        width: calc(2.2rem - 9px);
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent), rgba(0, 82, 255, 0.1));
+    }
 }
 
 .education-card h4 {
@@ -947,65 +1020,64 @@ img {
 
 .sticker {
     position: absolute;
-    opacity: 0.25;
-    mix-blend-mode: screen;
+    opacity: 0.55;
     animation: floatSticker 6s ease-in-out infinite;
 }
 
 .sticker-1 {
-    top: 6%;
-    left: 3%;
+    top: 13%;
+    right: 4%;
     --rot: -15deg;
     animation-delay: 0s;
-    width: clamp(45px, 5vw, 65px);
+    width: clamp(85px, 8vw, 125px);
 }
 
 .sticker-2 {
-    top: 7%;
-    right: 4%;
+    top: 36%;
+    right: 10%;
     --rot: 15deg;
     animation-delay: -1.5s;
-    width: clamp(45px, 5vw, 65px);
+    width: clamp(85px, 8vw, 125px);
 }
 
 .sticker-3 {
-    top: 88%;
-    left: 3%;
+    top: 52%;
+    right: 2%;
     --rot: 25deg;
     animation-delay: -3s;
-    width: clamp(45px, 5vw, 65px);
+    width: clamp(85px, 8vw, 125px);
 }
 
 .sticker-4 {
-    top: 5%;
-    left: 45%;
+    top: 30%;
+    left: 8%;
     --rot: -20deg;
     animation-delay: -4.5s;
-    width: clamp(45px, 5vw, 65px);
+    width: clamp(85px, 8vw, 125px);
 }
 
 .sticker-5 {
-    top: 45%;
-    right: 1%;
+    top: 72%;
+    left: 10%;
     --rot: -10deg;
     animation-delay: -2s;
-    width: clamp(40px, 4.5vw, 60px);
+    width: clamp(80px, 7.5vw, 115px);
 }
 
 .sticker-6 {
-    top: 87%;
-    right: 5%;
+    top: 83%;
+    right: 10%;
     --rot: 40deg;
     animation-delay: -5s;
-    width: clamp(45px, 5vw, 65px);
+    width: clamp(85px, 8vw, 125px);
 }
 
 .sticker-7 {
-    top: 88%;
-    left: 48%;
+    top: 94%;
+    left: 8%;
     --rot: 10deg;
     animation-delay: -1s;
-    width: clamp(40px, 4.5vw, 60px);
+    width: clamp(80px, 7.5vw, 115px);
 }
 
 @keyframes floatSticker {
@@ -1310,6 +1382,10 @@ img {
     --accent: #0052ff;
     --accent-strong: #003db3;
     --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .sticker {
+    opacity: 0.65;
 }
 
 [data-theme="light"] .site-nav {

@@ -6,14 +6,17 @@ const copyEmailButton = document.querySelector('.copy-email-btn');
 const revealItems = document.querySelectorAll('.reveal');
 
 function closeProject() {
-    overlay.classList.add('hidden');
-    overlay.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('overlay-open');
+    if (overlay) {
+        overlay.classList.add('hidden');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('overlay-open');
+    }
 }
 
 window.closeProject = closeProject;
 
 window.openCertificate = function(imgSrc, altText) {
+    if (!overlay || !detailContainer) return;
     detailContainer.innerHTML = `
         <div class="overlay-copy" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
             <img src="${imgSrc}" alt="${altText}" style="max-width: 100%; max-height: 85vh; height: auto; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); object-fit: contain;">
@@ -40,14 +43,16 @@ if (closeButton) {
     closeButton.addEventListener('click', closeProject);
 }
 
-overlay.addEventListener('click', (event) => {
-    if (event.target.dataset.close === 'true') {
-        closeProject();
-    }
-});
+if (overlay) {
+    overlay.addEventListener('click', (event) => {
+        if (event.target.dataset.close === 'true') {
+            closeProject();
+        }
+    });
+}
 
 document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && !overlay.classList.contains('hidden')) {
+    if (event.key === 'Escape' && overlay && !overlay.classList.contains('hidden')) {
         closeProject();
     }
 });
