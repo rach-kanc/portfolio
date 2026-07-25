@@ -479,6 +479,31 @@ img {
     color: var(--accent-strong);
 }
 
+/* ── Project Category Sections ── */
+.project-category-section {
+    margin-bottom: 3.5rem;
+}
+
+.project-category-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 1.8rem;
+    padding-left: 1rem;
+    border-left: 4px solid var(--accent);
+    color: var(--text-main);
+    letter-spacing: -0.01em;
+}
+
+.project-grid.categorized {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.project-grid.categorized > * {
+    grid-column: auto !important;
+}
+
 .tags,
 .chip-list {
     display: flex;

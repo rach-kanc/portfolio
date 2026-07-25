@@ -30,16 +30,58 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 function renderProjects(projects) {
-    const container = document.querySelector('.project-grid');
-    if (!container) return;
-    
-    let displayProjects = projects;
-    if (window.location.pathname === '/' || window.location.pathname.endsWith('index.html')) {
-        displayProjects = projects.slice(0, 4);
+    const isHomePage = window.location.pathname === '/' || window.location.pathname.endsWith('index.html');
+
+    if (isHomePage) {
+        const container = document.querySelector('.project-grid');
+        if (!container) return;
+        const displayProjects = projects.slice(0, 4);
+        container.innerHTML = displayProjects.map(p => components.projectCard(p)).join('');
+        attachProjectCardListeners(container);
+    } else {
+        const container = document.getElementById('project-categories-container') || document.querySelector('.project-grid');
+        if (!container) return;
+
+        const categoriesOrder = ['Open Source', 'Hackathons & Tech Events', 'Backend & Database', 'General'];
+        const grouped = {};
+        categoriesOrder.forEach(cat => grouped[cat] = []);
+
+        projects.forEach(p => {
+            const cat = p.category || 'General';
+            if (!grouped[cat]) grouped[cat] = [];
+            grouped[cat].push(p);
+        });
+
+        const categoryIcons = {
+            'Open Source': '🌍',
+            'Hackathons & Tech Events': '🏆',
+            'Backend & Database': '⚙️',
+            'General': '📁'
+        };
+
+        let html = '';
+        const allCats = categoriesOrder.concat(Object.keys(grouped).filter(k => !categoriesOrder.includes(k)));
+        allCats.forEach(cat => {
+            const list = grouped[cat];
+            if (list && list.length > 0) {
+                const icon = categoryIcons[cat] || '📂';
+                html += `
+                    <div class="project-category-section">
+                        <h3 class="project-category-title reveal">${icon} ${cat}</h3>
+                        <div class="project-grid categorized">
+                            ${list.map(p => components.projectCard(p)).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+        });
+
+        container.innerHTML = html;
+        attachProjectCardListeners(container);
     }
-    
-    container.innerHTML = displayProjects.map(p => components.projectCard(p)).join('');
-    
+}
+
+function attachProjectCardListeners(container) {
     const cards = container.querySelectorAll('.project-card');
     cards.forEach(card => {
         card.addEventListener('click', () => openProjectModal(card.dataset.projectId));
