@@ -70,16 +70,50 @@ function renderSkills(skills) {
 }
 
 function renderCertificates(certs) {
-    const container = document.querySelector('.cert-grid');
-    if (!container) return;
-
-    let displayCerts = certs;
-    if (window.location.pathname === '/' || window.location.pathname.endsWith('index.html')) {
-        displayCerts = certs.slice(0, 6);
+    const isHomePage = window.location.pathname === '/' || window.location.pathname.endsWith('index.html');
+    
+    if (isHomePage) {
+        const container = document.querySelector('.cert-grid');
+        if (!container) return;
+        const displayCerts = certs.slice(0, 6);
+        container.innerHTML = displayCerts.map(c => components.certCard(c)).join('');
+        attachCertCardListeners(container);
+    } else {
+        const container = document.getElementById('cert-categories-container') || document.querySelector('.cert-grid');
+        if (!container) return;
+        
+        const categoriesOrder = ['Hackathons & Tech Events', 'Courses', 'Bootcamps', 'Memberships', 'General'];
+        const grouped = {};
+        categoriesOrder.forEach(cat => grouped[cat] = []);
+        
+        certs.forEach(c => {
+            const cat = c.category || 'General';
+            if (!grouped[cat]) grouped[cat] = [];
+            grouped[cat].push(c);
+        });
+        
+        let html = '';
+        const allCats = categoriesOrder.concat(Object.keys(grouped).filter(k => !categoriesOrder.includes(k)));
+        allCats.forEach(cat => {
+            const list = grouped[cat];
+            if (list && list.length > 0) {
+                html += `
+                    <div class="cert-category-section">
+                        <h3 class="cert-category-title">${cat}</h3>
+                        <div class="cert-grid wrap">
+                            ${list.map(c => components.certCard(c)).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+        });
+        
+        container.innerHTML = html;
+        attachCertCardListeners(container);
     }
+}
 
-    container.innerHTML = displayCerts.map(c => components.certCard(c)).join('');
-
+function attachCertCardListeners(container) {
     const cards = container.querySelectorAll('.cert-card');
     cards.forEach(card => {
         card.style.cursor = 'pointer';

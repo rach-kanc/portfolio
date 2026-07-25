@@ -1064,6 +1064,33 @@ img {
     margin-bottom: 1rem;
 }
 
+/* Certificate Category Sections */
+.cert-category-section {
+    margin-bottom: 4rem;
+    width: 100%;
+}
+
+.cert-category-title {
+    font-size: 1.75rem;
+    color: var(--text-main);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.cert-category-title::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: var(--accent);
+}
+
 .cert-grid {
     display: flex;
     overflow-x: auto;
