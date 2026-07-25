@@ -42,32 +42,32 @@ function renderProjects(projects) {
         const container = document.getElementById('project-categories-container') || document.querySelector('.project-grid');
         if (!container) return;
 
-        const categoriesOrder = ['Open Source', 'Hackathons & Tech Events', 'Backend & Database', 'General'];
+        const typesOrder = ['Open Source', 'Personal', 'Teamwork', 'General'];
         const grouped = {};
-        categoriesOrder.forEach(cat => grouped[cat] = []);
+        typesOrder.forEach(t => grouped[t] = []);
 
         projects.forEach(p => {
-            const cat = p.category || 'General';
-            if (!grouped[cat]) grouped[cat] = [];
-            grouped[cat].push(p);
+            const t = p.type || 'General';
+            if (!grouped[t]) grouped[t] = [];
+            grouped[t].push(p);
         });
 
-        const categoryIcons = {
+        const typeIcons = {
             'Open Source': '🌍',
-            'Hackathons & Tech Events': '🏆',
-            'Backend & Database': '⚙️',
+            'Personal': '👤',
+            'Teamwork': '🤝',
             'General': '📁'
         };
 
         let html = '';
-        const allCats = categoriesOrder.concat(Object.keys(grouped).filter(k => !categoriesOrder.includes(k)));
-        allCats.forEach(cat => {
-            const list = grouped[cat];
+        const allTypes = typesOrder.concat(Object.keys(grouped).filter(k => !typesOrder.includes(k)));
+        allTypes.forEach(type => {
+            const list = grouped[type];
             if (list && list.length > 0) {
-                const icon = categoryIcons[cat] || '📂';
+                const icon = typeIcons[type] || '📂';
                 html += `
                     <div class="project-category-section">
-                        <h3 class="project-category-title reveal">${icon} ${cat}</h3>
+                        <h3 class="project-category-title reveal">${icon} ${type}</h3>
                         <div class="project-grid categorized">
                             ${list.map(p => components.projectCard(p)).join('')}
                         </div>

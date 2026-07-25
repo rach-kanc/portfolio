@@ -10,6 +10,7 @@ const schema = {
         { name: 'title', label: 'Title', type: 'text', required: true },
         { name: 'slug', label: 'Slug (URL friendly)', type: 'text', required: true },
         { name: 'category', label: 'Category', type: 'text' },
+        { name: 'type', label: 'Type', type: 'select', options: ['Open Source', 'Personal', 'Teamwork', 'General'] },
         { name: 'status', label: 'Status (e.g. Completed)', type: 'text' },
         { name: 'short_description', label: 'Short Description', type: 'text' },
         { name: 'full_description', label: 'Full Description', type: 'textarea' },
