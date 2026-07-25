@@ -180,7 +180,7 @@ const themeToggleBtn = document.getElementById('theme-toggle');
 const moonIcon = document.querySelector('.moon-icon');
 const sunIcon = document.querySelector('.sun-icon');
 
-const currentTheme = localStorage.getItem('theme') || 'light';
+const currentTheme = localStorage.getItem('portfolio_theme') || 'light';
 
 if (currentTheme === 'light') {
     document.documentElement.setAttribute('data-theme', 'light');
@@ -201,14 +201,14 @@ if (themeToggleBtn) {
         let theme = document.documentElement.getAttribute('data-theme');
         if (theme === 'light') {
             document.documentElement.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'dark');
+            localStorage.setItem('portfolio_theme', 'dark');
             if(moonIcon && sunIcon) {
                 moonIcon.style.display = 'none';
                 sunIcon.style.display = 'block';
             }
         } else {
             document.documentElement.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light');
+            localStorage.setItem('portfolio_theme', 'light');
             if(moonIcon && sunIcon) {
                 moonIcon.style.display = 'block';
                 sunIcon.style.display = 'none';
