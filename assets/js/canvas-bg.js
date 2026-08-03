@@ -24,8 +24,8 @@ class ParticleBackground {
     getThemeSettings() {
         const isLight = document.documentElement.getAttribute('data-theme') === 'light';
         return {
-            // Light: darker slate grey (#475569), Dark: gentle off-white (#e4e4e7)
-            rgb: isLight ? '71, 85, 105' : '228, 228, 231',
+            // Light: pure black (#000000), Dark: gentle off-white (#e4e4e7)
+            rgb: isLight ? '0, 0, 0' : '228, 228, 231',
             particleOpacity: isLight ? 0.38 : 0.12,
             lineOpacity: isLight ? 0.28 : 0.10,
             particleCount: Math.min(Math.floor((window.innerWidth * window.innerHeight) / 9000), 120)
