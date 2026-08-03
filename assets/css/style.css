@@ -65,6 +65,16 @@ img {
     transition: left 0.18s ease, top 0.18s ease;
 }
 
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+}
+
 .top-banner {
     background: rgba(255, 255, 255, 0.03);
     text-align: center;
