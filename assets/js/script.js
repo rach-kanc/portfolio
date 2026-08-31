@@ -2,7 +2,6 @@ const overlay = document.getElementById('project-overlay');
 const detailContainer = document.getElementById('project-details');
 const closeButton = document.querySelector('.close-btn');
 const glow = document.querySelector('.cursor-glow');
-const copyEmailButton = document.querySelector('.copy-email-btn');
 const revealItems = document.querySelectorAll('.reveal');
 
 function closeProject() {
@@ -66,21 +65,21 @@ document.addEventListener('mousemove', (event) => {
     glow.style.top = `${event.clientY}px`;
 });
 
-if (copyEmailButton) {
-    copyEmailButton.addEventListener('click', async () => {
-        const email = copyEmailButton.dataset.email;
-
+document.querySelectorAll('.copy-email-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+        const email = btn.dataset.email;
+        const originalHTML = btn.innerHTML;
         try {
             await navigator.clipboard.writeText(email);
-            copyEmailButton.textContent = 'Copied';
+            btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
             setTimeout(() => {
-                copyEmailButton.textContent = 'Copy Email';
+                btn.innerHTML = originalHTML;
             }, 1800);
         } catch (error) {
-            copyEmailButton.textContent = email;
+            console.error('Failed to copy', error);
         }
     });
-}
+});
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
