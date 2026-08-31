@@ -145,11 +145,16 @@ function renderCertificates(certs) {
         });
         
         let html = '';
+        let navHtml = '';
         orderedCategories.forEach(cat => {
             const list = grouped[cat];
             if (list && list.length > 0) {
+                const catId = 'cat-' + cat.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+                
+                navHtml += `<a href="#${catId}" class="btn btn-secondary" style="padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.1);">${cat}</a>`;
+                
                 html += `
-                    <div class="cert-category-section">
+                    <div class="cert-category-section" id="${catId}" style="scroll-margin-top: 100px;">
                         <h3 class="cert-category-title">${cat}</h3>
                         <div class="cert-grid wrap">
                             ${list.map(c => components.certCard(c)).join('')}
@@ -160,6 +165,9 @@ function renderCertificates(certs) {
         });
         
         container.innerHTML = html;
+        const navContainer = document.getElementById('cert-categories-nav');
+        if (navContainer) navContainer.innerHTML = navHtml;
+        
         attachCertCardListeners(container);
     }
 }
