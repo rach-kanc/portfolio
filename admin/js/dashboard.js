@@ -253,19 +253,27 @@ async function handleFormSubmit(e) {
 
 // Reorder Logic
 let sortableInstance = null;
+let currentReorderTab = null;
 
-window.openReorderModal = function() {
+window.openReorderModal = function(tab) {
+    currentReorderTab = tab;
     const list = document.getElementById('reorder-list');
-    list.innerHTML = (window.certsData || [])
-        .sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
-        .map(c => `<li data-id="${c.id}" style="padding: 1rem; margin-bottom: 0.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; cursor: grab; display:flex; justify-content:space-between;">
-            <span><strong>${c.title}</strong></span>
-            <span style="color:var(--text-secondary); font-size: 0.85rem;">[${c.category || 'General'}]</span>
-        </li>`).join('');
+    const sortField = tab === 'leadership' ? 'priority' : 'display_order';
+    const dataList = window[`${tab}Data`] || [];
+    
+    document.getElementById('reorder-modal-title').textContent = `Reorder ${tab.charAt(0).toUpperCase() + tab.slice(1)}`;
+    
+    list.innerHTML = dataList
+        .sort((a, b) => (a[sortField] || 0) - (b[sortField] || 0))
+        .map(c => {
+            const title = c.title || c.name || c.position || c.event_name;
+            const subtitle = c.category || c.organization || c.type || '';
+            return `<li data-id="${c.id}" style="padding: 1rem; margin-bottom: 0.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; cursor: grab; display:flex; justify-content:space-between;">
+            <span><strong>${title}</strong></span>
+            ${subtitle ? `<span style="color:var(--text-secondary); font-size: 0.85rem;">[${subtitle}]</span>` : ''}
+        </li>`}).join('');
 
-    if (sortableInstance) {
-        sortableInstance.destroy();
-    }
+    if (sortableInstance) sortableInstance.destroy();
     
     sortableInstance = new Sortable(list, {
         animation: 150,
@@ -285,13 +293,16 @@ window.saveReorder = async function() {
     btn.textContent = 'Saving...';
 
     try {
+        const tableMap = { projects: 'projects', skills: 'skills', certs: 'certificates', leadership: 'leadership', events: 'events' };
+        const tableName = tableMap[currentReorderTab];
+        const sortField = currentReorderTab === 'leadership' ? 'priority' : 'display_order';
+        
         const listItems = document.querySelectorAll('#reorder-list li');
         const updates = Array.from(listItems).map((li, index) => {
-            const certId = li.getAttribute('data-id');
-            // Fetch the existing certificate data so upsert doesn't overwrite other fields with nulls if we only send id and display_order. 
-            // Wait, supabase .update() doesn't support batch out of the box in JS client without upsert. 
-            // Doing individual updates is safer to avoid overwriting missing fields in an upsert if we don't have the full object.
-            return supabase.from('certificates').update({ display_order: index }).eq('id', certId);
+            const itemId = li.getAttribute('data-id');
+            const updateData = {};
+            updateData[sortField] = index;
+            return supabase.from(tableName).update(updateData).eq('id', itemId);
         });
 
         await Promise.all(updates);

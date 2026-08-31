@@ -47,7 +47,10 @@
         <div id="projects" class="tab-content active">
             <div class="header-actions">
                 <h2>Projects</h2>
-                <button class="btn btn-primary" onclick="window.openModal('project')">Add Project</button>
+                <div>
+                    <button class="btn btn-secondary" style="margin-right:0.5rem;" onclick="window.openReorderModal('projects')">Reorder</button>
+                    <button class="btn btn-primary" onclick="window.openModal('project')">Add Project</button>
+                </div>
             </div>
             <table class="data-table">
                 <thead><tr><th>Title</th><th>Category</th><th>Actions</th></tr></thead>
@@ -58,7 +61,10 @@
         <div id="skills" class="tab-content">
             <div class="header-actions">
                 <h2>Skills</h2>
-                <button class="btn btn-primary" onclick="window.openModal('skill')">Add Skill</button>
+                <div>
+                    <button class="btn btn-secondary" style="margin-right:0.5rem;" onclick="window.openReorderModal('skills')">Reorder</button>
+                    <button class="btn btn-primary" onclick="window.openModal('skill')">Add Skill</button>
+                </div>
             </div>
             <table class="data-table">
                 <thead><tr><th>Name</th><th>Category</th><th>Actions</th></tr></thead>
@@ -70,7 +76,7 @@
             <div class="header-actions">
                 <h2>Certificates</h2>
                 <div>
-                    <button class="btn btn-secondary" style="margin-right:0.5rem;" onclick="window.openReorderModal()">Reorder</button>
+                    <button class="btn btn-secondary" style="margin-right:0.5rem;" onclick="window.openReorderModal('certs')">Reorder</button>
                     <button class="btn btn-primary" onclick="window.openModal('cert')">Add Certificate</button>
                 </div>
             </div>
@@ -83,7 +89,10 @@
         <div id="leadership" class="tab-content">
             <div class="header-actions">
                 <h2>Leadership</h2>
-                <button class="btn btn-primary" onclick="window.openModal('leadership')">Add Role</button>
+                <div>
+                    <button class="btn btn-secondary" style="margin-right:0.5rem;" onclick="window.openReorderModal('leadership')">Reorder</button>
+                    <button class="btn btn-primary" onclick="window.openModal('leadership')">Add Role</button>
+                </div>
             </div>
             <table class="data-table">
                 <thead><tr><th>Position</th><th>Organization</th><th>Actions</th></tr></thead>
@@ -120,8 +129,8 @@
     <!-- Reorder Modal -->
     <div id="reorder-modal" class="admin-modal hidden">
         <div class="modal-content">
-            <h2>Reorder Certificates</h2>
-            <p style="color:var(--text-secondary); margin-bottom: 1rem; font-size:0.9rem;">Drag to reorder certificates. The category order on the frontend will follow the order you set here.</p>
+            <h2 id="reorder-modal-title">Reorder Items</h2>
+            <p style="color:var(--text-secondary); margin-bottom: 1rem; font-size:0.9rem;">Drag items to reorder them on your portfolio.</p>
             <ul id="reorder-list" style="list-style: none; padding: 0; margin-bottom: 1rem; max-height: 50vh; overflow-y: auto;">
                 <!-- Draggable items will be populated here -->
             </ul>
