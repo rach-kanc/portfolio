@@ -136,6 +136,19 @@ window.openModal = function(type, item = null) {
     document.getElementById('modal-title').textContent = item ? `Edit ${type}` : `Add ${type}`;
     
     const fields = schema[type];
+    
+    // Dynamically inject all existing categories into the datalist options so they can be reused
+    if (type === 'cert' && window.certsData) {
+        const catField = fields.find(f => f.name === 'category');
+        if (catField) {
+            const dynamicCats = new Set(['Hackathons & Tech Events', 'Courses', 'Bootcamps', 'Memberships', 'General']);
+            window.certsData.forEach(c => {
+                if (c.category) dynamicCats.add(c.category);
+            });
+            catField.options = Array.from(dynamicCats);
+        }
+    }
+
     const formFields = document.getElementById('form-fields');
     formFields.innerHTML = fields.map(f => {
         let val = item ? (item[f.name] || '') : '';
