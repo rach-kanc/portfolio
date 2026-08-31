@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Portfolio</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
     <style>
         body { display: flex; min-height: 100vh; margin: 0; background: var(--bg-main); color: var(--text-main); }
         .sidebar { width: 250px; background: rgba(255, 255, 255, 0.02); border-right: 1px solid rgba(255, 255, 255, 0.1); padding: 2rem 1rem; display: flex; flex-direction: column; }
@@ -68,7 +69,10 @@
         <div id="certs" class="tab-content">
             <div class="header-actions">
                 <h2>Certificates</h2>
-                <button class="btn btn-primary" onclick="window.openModal('cert')">Add Certificate</button>
+                <div>
+                    <button class="btn btn-secondary" style="margin-right:0.5rem;" onclick="window.openReorderModal()">Reorder</button>
+                    <button class="btn btn-primary" onclick="window.openModal('cert')">Add Certificate</button>
+                </div>
             </div>
             <table class="data-table">
                 <thead><tr><th>Title</th><th>Issuer</th><th>Category</th><th>Actions</th></tr></thead>
@@ -110,6 +114,21 @@
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Reorder Modal -->
+    <div id="reorder-modal" class="admin-modal hidden">
+        <div class="modal-content">
+            <h2>Reorder Certificates</h2>
+            <p style="color:var(--text-secondary); margin-bottom: 1rem; font-size:0.9rem;">Drag to reorder certificates. The category order on the frontend will follow the order you set here.</p>
+            <ul id="reorder-list" style="list-style: none; padding: 0; margin-bottom: 1rem; max-height: 50vh; overflow-y: auto;">
+                <!-- Draggable items will be populated here -->
+            </ul>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" onclick="window.closeReorderModal()">Cancel</button>
+                <button type="button" class="btn btn-primary" id="save-reorder-btn" onclick="window.saveReorder()">Save Order</button>
+            </div>
         </div>
     </div>
 

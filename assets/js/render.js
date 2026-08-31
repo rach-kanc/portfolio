@@ -132,19 +132,20 @@ function renderCertificates(certs) {
         const container = document.getElementById('cert-categories-container') || document.querySelector('.cert-grid');
         if (!container) return;
         
-        const categoriesOrder = ['Hackathons & Tech Events', 'Courses', 'Bootcamps', 'Memberships', 'General'];
         const grouped = {};
-        categoriesOrder.forEach(cat => grouped[cat] = []);
+        const orderedCategories = [];
         
         certs.forEach(c => {
             const cat = c.category || 'General';
-            if (!grouped[cat]) grouped[cat] = [];
+            if (!grouped[cat]) {
+                grouped[cat] = [];
+                orderedCategories.push(cat);
+            }
             grouped[cat].push(c);
         });
         
         let html = '';
-        const allCats = categoriesOrder.concat(Object.keys(grouped).filter(k => !categoriesOrder.includes(k)));
-        allCats.forEach(cat => {
+        orderedCategories.forEach(cat => {
             const list = grouped[cat];
             if (list && list.length > 0) {
                 html += `

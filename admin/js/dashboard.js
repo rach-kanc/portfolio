@@ -38,7 +38,7 @@ const schema = {
     ],
     cert: [
         { name: 'title', label: 'Title', type: 'text', required: true },
-        { name: 'category', label: 'Category', type: 'select', options: ['Hackathons & Tech Events', 'Courses', 'Bootcamps', 'Memberships', 'General'], required: true },
+        { name: 'category', label: 'Category', type: 'datalist', options: ['Hackathons & Tech Events', 'Courses', 'Bootcamps', 'Memberships', 'General'], required: true },
         { name: 'issuer', label: 'Issuer', type: 'text' },
         { name: 'issue_date', label: 'Issue Date', type: 'date' },
         { name: 'credential_id', label: 'Credential ID', type: 'text' },
@@ -153,6 +153,12 @@ window.openModal = function(type, item = null) {
             inputHtml = `<select id="${f.name}" name="${f.name}" ${f.required ? 'required' : ''}>
                 ${(f.options || []).map(opt => `<option value="${opt}" ${val === opt ? 'selected' : ''}>${opt}</option>`).join('')}
             </select>`;
+        } else if (f.type === 'datalist') {
+            const listId = `${f.name}-list`;
+            inputHtml = `<input type="text" id="${f.name}" name="${f.name}" value="${val.toString().replace(/"/g, '&quot;')}" list="${listId}" ${f.required ? 'required' : ''}>
+            <datalist id="${listId}">
+                ${(f.options || []).map(opt => `<option value="${opt}"></option>`).join('')}
+            </datalist>`;
         } else {
             inputHtml = `<input type="${f.type}" id="${f.name}" name="${f.name}" value="${val.toString().replace(/"/g, '&quot;')}" ${f.required ? 'required' : ''}>`;
         }
@@ -241,7 +247,62 @@ async function handleFormSubmit(e) {
         console.error(error);
         if (error.message) alert('Error saving: ' + error.message);
     } finally {
-        btn.disabled = false;
         btn.textContent = 'Save';
     }
 }
+
+// Reorder Logic
+let sortableInstance = null;
+
+window.openReorderModal = function() {
+    const list = document.getElementById('reorder-list');
+    list.innerHTML = (window.certsData || [])
+        .sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
+        .map(c => `<li data-id="${c.id}" style="padding: 1rem; margin-bottom: 0.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; cursor: grab; display:flex; justify-content:space-between;">
+            <span><strong>${c.title}</strong></span>
+            <span style="color:var(--text-secondary); font-size: 0.85rem;">[${c.category || 'General'}]</span>
+        </li>`).join('');
+
+    if (sortableInstance) {
+        sortableInstance.destroy();
+    }
+    
+    sortableInstance = new Sortable(list, {
+        animation: 150,
+        ghostClass: 'sortable-ghost'
+    });
+
+    document.getElementById('reorder-modal').classList.remove('hidden');
+};
+
+window.closeReorderModal = function() {
+    document.getElementById('reorder-modal').classList.add('hidden');
+};
+
+window.saveReorder = async function() {
+    const btn = document.getElementById('save-reorder-btn');
+    btn.disabled = true;
+    btn.textContent = 'Saving...';
+
+    try {
+        const listItems = document.querySelectorAll('#reorder-list li');
+        const updates = Array.from(listItems).map((li, index) => {
+            const certId = li.getAttribute('data-id');
+            // Fetch the existing certificate data so upsert doesn't overwrite other fields with nulls if we only send id and display_order. 
+            // Wait, supabase .update() doesn't support batch out of the box in JS client without upsert. 
+            // Doing individual updates is safer to avoid overwriting missing fields in an upsert if we don't have the full object.
+            return supabase.from('certificates').update({ display_order: index }).eq('id', certId);
+        });
+
+        await Promise.all(updates);
+        
+        window.closeReorderModal();
+        await loadData();
+    } catch (error) {
+        console.error(error);
+        alert('Error saving order: ' + error.message);
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Save Order';
+    }
+};
