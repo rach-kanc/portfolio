@@ -2,7 +2,7 @@
 
 A premium, highly interactive personal portfolio website and custom Content Management System (CMS) built for **Rachit Kanchan**, a B.Tech CSE student at SRMS CET focused on backend engineering, database architectures, and open-source software.
 
-🔗 **Live Portfolio:** https://portfolio-beta-nine-4um2ztuguj.vercel.app/
+🔗 **Live Portfolio:** https://portfolio-rachit-kanchan.vercel.app/
 
 ---
 
