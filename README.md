@@ -13,6 +13,7 @@ A premium, highly interactive personal portfolio website and custom Content Mana
 - **🎒 Responsive Horizontal Timeline:** A custom education timeline that renders as a horizontal node-and-stem roadmap on desktop, and seamlessly pivots to a vertical layout on mobile devices.
 - **✨ Perimeter Floating Stickers:** Clean, playful background emojis dynamically distributed across safe white-space margins so they never overlap or interfere with text content.
 - **🛠️ Self-Secured CMS Dashboard:** A built-in administrator portal (`/admin/dashboard.html`) powered by Supabase Auth and Database RLS, allowing real-time CRUD management for projects, skills, certificates, leadership items, and events.
+- **🔄 Drag-and-Drop CMS Reordering:** A fully generic SortableJS drag-and-drop interface within the CMS to visually reorder Projects, Skills, Certificates, and Leadership items. Category ordering on the frontend dynamically infers its order from the items themselves—achieving complete sortability with zero schema changes.
 - **📂 Categorized Project Board:** Organized project grids grouped dynamically by build context:
   - **🌍 Open-Source Contributions**
   - **👤 Personal Projects & Experiments**
