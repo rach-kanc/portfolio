@@ -260,6 +260,7 @@ async function handleFormSubmit(e) {
         console.error(error);
         if (error.message) alert('Error saving: ' + error.message);
     } finally {
+        btn.disabled = false;
         btn.textContent = 'Save';
     }
 }

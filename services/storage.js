@@ -8,7 +8,10 @@ export const storage = {
 
     const { error: uploadError, data } = await supabase.storage
       .from('portfolio-media')
-      .upload(filePath, file);
+      .upload(filePath, file, {
+        cacheControl: '31536000',
+        upsert: false
+      });
 
     if (uploadError) {
       console.error('Error uploading file:', uploadError);
