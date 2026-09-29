@@ -27,15 +27,15 @@ export const components = {
     return `
       <article class="cert-card reveal">
           <div class="cert-image">
-              <img src="${cert.certificate_image || ''}" alt="${cert.title}">
+              <img src="${cert.certificate_image || ''}" alt="${cert.title}" loading="lazy">
               <div class="cert-overlay">
                   <span>${cert.title}</span>
-                  <small>${cert.issuer}</small>
+                  <small>${cert.issuer || ''}</small>
               </div>
           </div>
           <div class="cert-content">
               <h3>${cert.title}</h3>
-              <p>${cert.issuer}</p>
+              <p>${cert.issuer || ''}</p>
           </div>
       </article>
     `;
@@ -46,7 +46,7 @@ export const components = {
       <article class="timeline-card leadership-card reveal">
           <div class="timeline-meta">${item.organization}</div>
           <h4>${item.position}</h4>
-          <p>${item.description}</p>
+          <p>${item.description || ''}</p>
           <span class="leadership-badge">${item.end_date ? new Date(item.end_date).getFullYear() : 'Ongoing'}</span>
       </article>
     `;
@@ -57,7 +57,7 @@ export const components = {
       <article class="timeline-card leadership-card reveal">
           <div class="timeline-meta">${event.organizer || ''}</div>
           <h4>${event.event_name}</h4>
-          <p>${event.role}</p>
+          <p>${event.role || ''}</p>
           <span class="leadership-badge">${new Date(event.date).getFullYear()}</span>
       </article>
     `;
